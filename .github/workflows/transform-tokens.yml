@@ -1,0 +1,31 @@
+name: Transform tokens send from figma
+# this triggers the action when a post to "https://api.github.com/repos/:username/:repo/dispatches" comes in
+on:
+  repository_dispatch:
+    types: update-tokens
+jobs:
+  build:
+    name: Transform Figma design tokens for specific platforms
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: mkdir "tokens" directory
+        run: "mkdir -p tokens"
+      - name: create json from request body
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          # it uses the figma filename that was send as then filename parameter
+          name: ${{ github.event.client_payload.filename }}
+          # it uses the json string that was send as the tokens parameter
+          json: ${{ github.event.client_payload.tokens }}
+          dir: "tokens"
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: ${{ github.event.client_payload.commitMessage || 'Tokens updated' }}
+          title: "CSS variables updated"
+          body: "CSS variables have been updated via Figma and need to be reviewed."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: "main"

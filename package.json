@@ -1,0 +1,12 @@
+{
+  "name": "kg-css-variables",
+  "version": "0.0.1",
+  "description": "Base repo to transform json design tokens from the figma design token plugin via amazon style directory.",
+  "main": "index.js",
+  "devDependencies": {
+    "style-dictionary": "^3.9.2"
+  },
+  "scripts": {
+    "transform-tokens": "node ./transformTokens.js"
+  }
+}

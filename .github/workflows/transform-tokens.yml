@@ -15,7 +15,7 @@ jobs:
       - name: Filter and create JSON from request body
         id: create-json
         run: |
-          echo '${{ github.event.client_payload.tokens }}' | jq '{primitives: .primitives}' > tokens/${{ github.event.client_payload.filename }}.json
+          echo '${{ github.event.client_payload.tokens }}' | jq '{primitives: .primitives}' > tokens/primitives.json
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

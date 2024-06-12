@@ -7,6 +7,6 @@
     "style-dictionary": "^3.9.2"
   },
   "scripts": {
-    "transform-tokens": "node ./transformTokens.js"
+    "transform-tokens": "node ./transformTokens.ts"
   }
 }

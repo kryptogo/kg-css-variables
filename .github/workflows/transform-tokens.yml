@@ -23,7 +23,7 @@ jobs:
           node-version: lts/*
 
       - name: Transform design tokens
-        run: "pnpm install && pnpm transform-tokens"
+        run: "npm install && npm transform-tokens"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6

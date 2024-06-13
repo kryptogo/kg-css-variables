@@ -20,26 +20,6 @@ jobs:
             filename=$(echo $key | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g').tokens.json
             echo "{\"$key\": $value}" > tokens/$filename
           done
-      - name: Replace variables in JSON
-        id: replace-variables
-        run: |
-          replace_tokens() {
-            local file=$1
-            local data=$(cat $file)
-            echo "$data" | jq -r 'walk(
-              if type == "string" and test("^{primitives") then
-                gsub("\\{";"\\|";"\\}";"\\|") | 
-                split("|") | 
-                map(select(length > 0)) | 
-                join(".") | 
-                (. as $key | env[$key] // $key)
-              else . end
-            )' > $file
-          }
-
-          for file in tokens/*.json; do
-            replace_tokens $file
-          done
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6

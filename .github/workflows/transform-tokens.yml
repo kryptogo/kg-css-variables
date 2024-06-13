@@ -15,8 +15,7 @@ jobs:
       - name: Filter and create JSON from request body
         id: create-json
         run: |
-          echo '${{ github.event.client_payload.tokens }}' > tokens/raw.json
-          jq -r 'to_entries[] | "\(.key) \(.value | @json)"' tokens/raw.json | while read key value; do
+          echo '${{ github.event.client_payload.tokens }}' | jq -r 'to_entries[] | "\(.key) \(.value | @json)"' | while read key value; do
             filename=$(echo $key | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g').tokens.json
             echo "{\"$key\": $value}" > tokens/$filename
           done

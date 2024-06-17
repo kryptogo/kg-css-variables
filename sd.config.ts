@@ -8,6 +8,9 @@ module.exports = {
         {
           destination: "kg-variables.css",
           format: "css/variables",
+          options: {
+            outputReferences: true,
+          },
         },
       ],
     },

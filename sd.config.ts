@@ -8,9 +8,11 @@ module.exports = {
         {
           destination: "kg-variables.css",
           format: "css/variables",
-          options: {
-            outputReferences: true,
-          },
+          // https://amzn.github.io/style-dictionary/#/version_3?id=output-references
+          // Without outputReferences: true Style Dictionary would resolve all references
+          // options: {
+          //   outputReferences: true,
+          // },
         },
       ],
     },
